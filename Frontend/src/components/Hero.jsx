@@ -17,7 +17,7 @@ function Header() {
   return (
     <header className="fixed top-0 left-0 w-full bg-black/90 backdrop-blur-md z-50">
       <div className="max-w-7xl mx-auto px-6 md:px-16 py-4 flex justify-between items-center">
-        <h1 className="text-2xl font-bold text-white">Notezy</h1>
+        <h1 className="text-2xl font-bold text-white">IdeaVolt</h1>
         <div className="flex space-x-4">
           <button className="text-white hover:text-gray-300 transition" onClick={handleforSign}>
             Sign Up

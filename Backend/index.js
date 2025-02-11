@@ -18,7 +18,11 @@ const connectDB = async () =>{
 
 connectDB()
 
+<<<<<<< HEAD
 const PORT = process.env.PORT || 8080;
+=======
+const PORT = process.env.PORT || 8090;
+>>>>>>> ce9560d2a1c1139fba88738d3b4b7e48a4abd797
 
 // Test Route
 app.get('/ping', (req, res) => {
