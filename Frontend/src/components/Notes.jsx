@@ -69,7 +69,7 @@ const Notes = () => {
   const deleteNote = async (id) => {
     try {
         const token = localStorage.getItem('token');
-        const response = await fetch(`http://localhost:8080/api/notes/${id}`, {
+        const response = await fetch(`http://localhost:8090/api/notes/${id}`, {
             method: 'DELETE',
             headers: {
                 'Authorization': `Bearer ${token}`,
@@ -87,7 +87,7 @@ const Notes = () => {
   const fetchNotes = async () => {
     try {
         const token = localStorage.getItem('token');
-        const response = await fetch('http://localhost:8080/api/notes', {
+        const response = await fetch('http://localhost:8090/api/notes', {
             headers: {
                 'Authorization': `Bearer ${token}`,
             },
@@ -105,7 +105,7 @@ const Notes = () => {
     if (input.trim() !== "") {
         try {
             const token = localStorage.getItem('token');
-            const response = await fetch('http://localhost:8080/api/notes', {
+            const response = await fetch('http://localhost:8090/api/notes', {
                 method: 'POST',
                 headers: {
                     'Authorization': `Bearer ${token}`,
@@ -187,7 +187,7 @@ const Notes = () => {
         } transition-transform md:translate-x-0 z-50`}
       >
         <div className="flex justify-between items-center">
-          <h1 className="text-xl font-bold">Notezy</h1>
+          <h1 className="text-xl font-bold">IdeaVolt</h1>
           <button className="md:hidden text-white" onClick={() => setSidebarOpen(false)}>
             <FaTimes size={20} />
           </button>
