@@ -42,9 +42,9 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const path = require('path'); // Add this for static file handling
-const AuthRouter = require('./Routes/AuthRouter');
-const NoteRouter = require('./Routes/NoteRouter');
+const path = require('path'); 
+const AuthRouter = require('./Backend/Routes/AuthRouter'); // Updated path
+const NoteRouter = require('./Backend/Routes/NoteRouter'); // Updated path
 const mongoose = require('mongoose');
 
 require('dotenv').config();
@@ -56,7 +56,7 @@ const connectDB = async () => {
         console.log('✅ Connected to MongoDB');
     } catch (err) {
         console.error('❌ Error connecting to MongoDB:', err);
-        process.exit(1); // Exit the process if MongoDB connection fails
+        process.exit(1); 
     }
 };
 
@@ -70,12 +70,11 @@ app.use(cors());
 
 // Serve static files from the React app (if client is built)
 if (process.env.NODE_ENV === 'production') {
-    // Set the static folder
-    app.use(express.static(path.join(__dirname, './Frontend/build')));
+    const frontendPath = path.join(__dirname, 'Frontend', 'dist'); // Use 'dist' for Vite
+    app.use(express.static(frontendPath));
 
-    // Handle React routing, return all requests to React app
     app.get('*', (req, res) => {
-        res.sendFile(path.join(__dirname, './Frontend/build', 'index.html'));
+        res.sendFile(path.join(frontendPath, 'index.html'));
     });
 }
 
