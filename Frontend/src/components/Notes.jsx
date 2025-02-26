@@ -69,7 +69,7 @@ const Notes = () => {
   const deleteNote = async (id) => {
     try {
         const token = localStorage.getItem('token');
-        const response = await fetch(`https://ideavolt-backend.onrender.com/api/notes/${id}`, {
+        const response = await fetch(`https://notestaskingapp-backend-oejn.onrender.com/api/notes/${id}`, {
             method: 'DELETE',
             headers: {
                 'Authorization': `Bearer ${token}`,
@@ -87,7 +87,7 @@ const Notes = () => {
   const fetchNotes = async () => {
     try {
         const token = localStorage.getItem('token');
-        const response = await fetch('https://ideavolt-backend.onrender.com/api/notes', {
+        const response = await fetch('https://notestaskingapp-backend-oejn.onrender.com/api/notes', {
             headers: {
                 'Authorization': `Bearer ${token}`,
             },
@@ -105,7 +105,7 @@ const Notes = () => {
     if (input.trim() !== "") {
         try {
             const token = localStorage.getItem('token');
-            const response = await fetch('https://ideavolt-backend.onrender.com/api/notes', {
+            const response = await fetch('https://notestaskingapp-backend-oejn.onrender.com/api/notes', {
                 method: 'POST',
                 headers: {
                     'Authorization': `Bearer ${token}`,
