@@ -1,33 +1,22 @@
-import { defineConfig } from 'vite'
-import tailwindcss from '@tailwindcss/vite'
-export default defineConfig({
-  base: '/',
-  // base: '/NotesTaskingApp/',
-  plugins: [
-    tailwindcss(),
-  ],
-})
-
-
-// import { defineConfig } from 'vite';
-// import tailwindcss from '@tailwindcss/vite';
-
+// import { defineConfig } from 'vite'
+// import tailwindcss from '@tailwindcss/vite'
 // export default defineConfig({
-//   base: '/NotesTaskingApp/',
+//   base: '/',
+//   // base: '/NotesTaskingApp/',
 //   plugins: [
 //     tailwindcss(),
 //   ],
-//   build: {
-//     rollupOptions: {
-//       external: [
-//         // Add any other necessary external dependencies here
-//       ]
-//     }
-//   },
-//   resolve: {
-//     alias: {
-//       // Add this alias if the error persists
-//       'react-toastify': 'react-toastify/dist/react-toastify.esm.js'
-//     }
-//   }
-// });
+// })
+
+
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react'; // Add this if you're using React
+import tailwindcss from '@tailwindcss/vite';
+
+export default defineConfig({
+  plugins: [
+    react(), // Add this if you're using React
+    tailwindcss(),
+  ],
+});
+
