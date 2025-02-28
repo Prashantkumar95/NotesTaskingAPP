@@ -1,7 +1,8 @@
 import { defineConfig } from 'vite'
 import tailwindcss from '@tailwindcss/vite'
 export default defineConfig({
-  base: '/NotesTaskingApp/',
+  base: '/',
+  // base: '/NotesTaskingApp/',
   plugins: [
     tailwindcss(),
   ],
