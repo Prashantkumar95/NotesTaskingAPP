@@ -204,7 +204,7 @@ const SignUp = () => {
     if (!validateForm()) return;
 
     try {
-      const response = await fetch("https://notestaskingapp-backend-oejn.onrender.com/auth/signup", {
+      const response = await fetch("https://ideavolt-backend.onrender.com/auth/signup", {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(signupInfo)

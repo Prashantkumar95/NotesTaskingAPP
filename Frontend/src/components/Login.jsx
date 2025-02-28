@@ -175,7 +175,7 @@ const Login = () => {
     }
 
     try {
-      const response = await fetch("https://notestaskingapp-backend-oejn.onrender.com/auth/login", {
+      const response = await fetch("https://ideavolt-backend.onrender.com/auth/login", {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
