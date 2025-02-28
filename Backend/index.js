@@ -20,6 +20,24 @@ connectDB()
 
 const PORT = process.env.PORT || 8090;
 
+
+// CORS Configuration
+const allowedOrigins = [
+    'https://ideavolt-frontend.onrender.com', 
+];
+
+app.use(cors({
+    origin: (origin, callback) => {
+        if (!origin || allowedOrigins.includes(origin)) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+}));
+
 // Test Route
 app.get('/ping', (req, res) => {
     res.send('PONG');
