@@ -9,7 +9,7 @@ import Welcome from './components/Welcome.jsx';
 
 function App() {
   return (
-    <BrowserRouter>
+    <HashRouter>
       <Routes>
         <Route path="/" element={<Hero/>} />
         <Route path="/notes" element={<Notes />} />
@@ -18,7 +18,7 @@ function App() {
         <Route path="/welcome" element={<Welcome />} />
 
       </Routes>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 
