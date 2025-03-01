@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { handlError, handleSuccess } from '../utils';
+
 const Login = () => {
   const [loginInfo , setloginInfo] = useState({
     email:'',
@@ -82,7 +83,7 @@ const Login = () => {
           <p className="text-gray-400 mt-2">Sign in to continue to IdeaVolt</p>
         </div>
 
-        <form className="space-y-6" onSubmit={handleLogin}>
+        <form className="space-y-6" onSubmit={handlelogin}>
           <div className="space-y-4">
             <div className="group">
               <label className="block text-sm font-medium text-gray-400 mb-2">
