@@ -142,7 +142,8 @@ const PORT = process.env.PORT || 8090;
 
 // CORS Configuration
 const allowedOrigins = [
-    'https://ideavolt.vercel.app', // Include the full URL with protocol
+    'https://ideavolt.vercel.app', // Your frontend URL
+    'http://localhost:3000', // Allow local development
 ];
 
 app.use(cors({
@@ -157,8 +158,8 @@ app.use(cors({
             callback(new Error('Not allowed by CORS'));
         }
     },
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    allowedHeaders: ['Content-Type', 'Authorization'],
+    methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allow specific HTTP methods
+    allowedHeaders: ['Content-Type', 'Authorization'], // Allow specific headers
     credentials: true, // Allow cookies and credentials
 }));
 
@@ -174,15 +175,22 @@ app.get('/ping', (req, res) => {
 app.use('/auth', AuthRouter);
 app.use('/api', NoteRouter);
 
-// Serve static files for production (optional)
+// Serve static files for production
 if (process.env.NODE_ENV === 'production') {
-    const frontendPath = path.join(__dirname, 'Frontend', 'dist'); // Use 'dist' for Vite
+    const frontendPath = path.join(__dirname, 'Frontend', 'dist'); // Path to your frontend build
     app.use(express.static(frontendPath));
 
+    // Serve the frontend's index.html for all routes
     app.get('*', (req, res) => {
         res.sendFile(path.join(frontendPath, 'index.html'));
     });
 }
+
+// Error Handling Middleware
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).json({ message: 'Something went wrong!' });
+});
 
 // Start Server
 app.listen(PORT, () => {
