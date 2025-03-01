@@ -128,6 +128,7 @@ const connectDB = async () => {
         await mongoose.connect(process.env.MONGO_CONN, {
             useNewUrlParser: true,
             useUnifiedTopology: true,
+            useCreateIndex: true, // Optional: For older Mongoose versions
         });
         console.log('✅ Connected to MongoDB');
     } catch (err) {
@@ -143,6 +144,8 @@ const PORT = process.env.PORT || 8090;
 // CORS Configuration
 const allowedOrigins = [
     'https://ideavolt.vercel.app', // Include the full URL with protocol
+    'http://localhost:3000', // Allow local development
+    /\.vercel\.app$/, // Allow all subdomains of vercel.app
 ];
 
 app.use(cors({
@@ -151,7 +154,14 @@ app.use(cors({
         if (!origin) return callback(null, true);
 
         // Check if the origin is allowed
-        if (allowedOrigins.includes(origin)) {
+        if (allowedOrigins.some(allowedOrigin => {
+            if (typeof allowedOrigin === 'string') {
+                return origin === allowedOrigin;
+            } else if (allowedOrigin instanceof RegExp) {
+                return allowedOrigin.test(origin);
+            }
+            return false;
+        })) {
             callback(null, true);
         } else {
             callback(new Error('Not allowed by CORS'));
@@ -164,6 +174,12 @@ app.use(cors({
 
 // Middleware
 app.use(bodyParser.json());
+
+// Logging Middleware
+app.use((req, res, next) => {
+    console.log(`${req.method} ${req.url}`);
+    next();
+});
 
 // Test Route
 app.get('/ping', (req, res) => {
@@ -183,6 +199,12 @@ if (process.env.NODE_ENV === 'production') {
         res.sendFile(path.join(frontendPath, 'index.html'));
     });
 }
+
+// Error Handling Middleware
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).json({ message: 'Something went wrong!' });
+});
 
 // Start Server
 app.listen(PORT, () => {
