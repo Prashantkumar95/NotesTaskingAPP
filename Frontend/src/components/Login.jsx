@@ -175,7 +175,7 @@ const Login = () => {
     }
 
     try {
-      const response = await fetch("http://localhost:8090/auth/login", {
+      const response = await fetch("notes-tasking-app.vercel.app/auth/login", {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
