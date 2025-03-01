@@ -1,10 +1,10 @@
 import React from 'react';
 import { Router, Routes, Route, HashRouter } from 'react-router-dom';
-import Hero from './components/Hero';
-import Notes from './components/Notes';
-import Login from './components/Login';
-import SignUp from './components/Signup';
-import Welcome from './components/Welcome';
+import Hero from './components/Hero.jsx';
+import Notes from './components/Notes.jsx';
+import Login from './components/Login.jsx';
+import SignUp from './components/Signup.jsx';
+import Welcome from './components/Welcome.jsx';
 
 
 function App() {
