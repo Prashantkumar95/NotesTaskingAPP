@@ -8,7 +8,9 @@ import 'react-toastify/dist/ReactToastify.css';
 
 createRoot(document.getElementById('root')).render(
   
-    <App />
+    <StrictMode>    
+        <App />  
+    </StrictMode>,
   
 );
 
