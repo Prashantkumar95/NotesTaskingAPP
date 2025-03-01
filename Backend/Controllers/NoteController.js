@@ -37,8 +37,35 @@ const deleteNote = async (req, res) => {
     }
 };
 
+const updateNote = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { text } = req.body;
+
+        // Find the note by ID
+        const note = await NoteModel.findById(id);
+        if (!note) {
+            return res.status(404).json({ message: "Note not found", success: false });
+        }
+
+        // Check if the user is authorized to update the note
+        if (note.user.toString() !== req.user._id.toString()) {
+            return res.status(403).json({ message: "Unauthorized", success: false });
+        }
+
+        // Update the note
+        note.text = text; // Update the text field
+        await note.save(); // Save the updated note
+
+        res.status(200).json({ message: "Note updated successfully", success: true, note });
+    } catch (err) {
+        res.status(500).json({ message: "Internal server error", success: false });
+    }
+};
+
 module.exports = {
     getNotes,
     addNote,
-    deleteNote
+    deleteNote,
+    updateNote, // Export the new updateNote function
 };
