@@ -144,7 +144,7 @@ const PORT = process.env.PORT || 8090;
 // CORS Configuration
 const allowedOrigins = [
     'https://ideavolt.vercel.app', // Include the full URL with protocol
-    'http://localhost:3000', // Allow local development
+    'http://localhost:8090', // Allow local development
     /\.vercel\.app$/, // Allow all subdomains of vercel.app
 ];
 
