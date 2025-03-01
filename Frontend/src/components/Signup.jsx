@@ -154,7 +154,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { handlError, handleSuccess } from '../utils.js';
+import { handleError, handleSuccess } from '../utils.js'; // Ensure handleError and handleSuccess are correctly implemented in your utils.js
 
 const SignUp = () => {
   const [signupInfo, setSignupInfo] = useState({
@@ -209,15 +209,20 @@ const SignUp = () => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(signupInfo)
       });
-      
+
       const result = await response.json();
-      
+      console.log(result);  // Log server response for debugging
+
+      if (!response.ok) {
+        throw new Error(result.message || "Server error");
+      }
+
       if (result.success) {
         handleSuccess(result.message);
         setTimeout(() => navigate('/login'), 1000);
       } else {
-        handlError(result.message || 'Signup failed');
-        if (result.error) {
+        handleError(result.message || 'Signup failed');
+        if (result.error && result.error.details) {
           const serverErrors = {};
           result.error.details.forEach(err => {
             const field = err.path[0];
@@ -227,7 +232,8 @@ const SignUp = () => {
         }
       }
     } catch (err) {
-      handlError('Network error - please try again later');
+      console.error(err);  // Log error to help debug
+      handleError('Network error - please try again later');
     }
   };
 
@@ -304,7 +310,7 @@ const SignUp = () => {
         <div className="mt-6 text-center">
           <p className="text-sm text-gray-400">
             Already have an account?{' '}
-            <button 
+            <button
               onClick={handleSwitchToLogin}
               className="text-blue-400 hover:text-blue-300 font-medium transition-colors"
             >
@@ -314,7 +320,7 @@ const SignUp = () => {
         </div>
       </div>
 
-      <ToastContainer 
+      <ToastContainer
         position="bottom-center"
         autoClose={5000}
         hideProgressBar
