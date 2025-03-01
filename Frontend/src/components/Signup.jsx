@@ -175,11 +175,12 @@
 // export default SignUp;
 
 
+
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { handleError, handleSuccess } from '../utils';
+import { handlError, handleSuccess } from '../utils';
 
 const SignUp = () => {
   const [signupInfo, setSignupInfo] = useState({
@@ -212,10 +213,10 @@ const SignUp = () => {
     if (!signupInfo.name.trim()) newErrors.name = 'Name is required';
     if (!signupInfo.email.trim()) {
       newErrors.email = 'Email is required';
-    } else if (!/\S+@\S+\.\S+/.test(signupInfo.email.trim())) {
+    } else if (!/\S+@\S+\.\S+/.test(signupInfo.email)) {
       newErrors.email = 'Email is invalid';
     }
-    if (!signupInfo.password.trim()) {
+    if (!signupInfo.password) {
       newErrors.password = 'Password is required';
     } else if (signupInfo.password.length < 6) {
       newErrors.password = 'Password must be at least 6 characters';
@@ -236,19 +237,17 @@ const SignUp = () => {
       });
 
       if (!response.ok) {
-        const errorMessage = await response.text();
-        throw new Error('Server error: ' + errorMessage);
+        throw new Error('Server error: ' + response.statusText);
       }
 
       const result = await response.json();
 
       if (result.success) {
         handleSuccess(result.message);
-        setSignupInfo({ name: '', email: '', password: '' }); // Reset form
         setTimeout(() => navigate('/login'), 1000);
       } else {
-        handleError(result.message || 'Signup failed');
-        if (result.error && result.error.details) {
+        handlError(result.message || 'Signup failed');
+        if (result.error) {
           const serverErrors = {};
           result.error.details.forEach(err => {
             const field = err.path[0];
@@ -258,7 +257,7 @@ const SignUp = () => {
         }
       }
     } catch (err) {
-      handleError('Network error - please try again later');
+      handlError('Network error - please try again later');
     }
   };
 
@@ -274,39 +273,51 @@ const SignUp = () => {
 
         <form className="space-y-4" onSubmit={handleSignup}>
           <div>
-            <label className="block text-sm font-medium text-gray-400 mb-2">Full Name</label>
+            <label className="block text-sm font-medium text-gray-400 mb-2">
+              Full Name
+            </label>
             <input
               onChange={handleChange}
               type="text"
               name="name"
               value={signupInfo.name}
-              className={`w-full px-4 py-3 bg-gray-700/50 border ${errors.name ? 'border-red-500 focus:ring-red-500' : 'border-gray-600'}`}
+              className={`w-full px-4 py-3 bg-gray-700/50 border ${
+                errors.name ? 'border-red-500' : 'border-gray-600'
+              } rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all`}
               placeholder="Enter your full name"
             />
             {errors.name && <p className="text-red-400 text-sm mt-1">{errors.name}</p>}
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-400 mb-2">Email</label>
+            <label className="block text-sm font-medium text-gray-400 mb-2">
+              Email
+            </label>
             <input
               onChange={handleChange}
               type="email"
               name="email"
               value={signupInfo.email}
-              className={`w-full px-4 py-3 bg-gray-700/50 border ${errors.email ? 'border-red-500 focus:ring-red-500' : 'border-gray-600'}`}
+              className={`w-full px-4 py-3 bg-gray-700/50 border ${
+                errors.email ? 'border-red-500' : 'border-gray-600'
+              } rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all`}
               placeholder="Enter your email"
             />
             {errors.email && <p className="text-red-400 text-sm mt-1">{errors.email}</p>}
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-400 mb-2">Password</label>
+            <label className="block text-sm font-medium text-gray-400 mb-2">
+              Password
+            </label>
             <input
               onChange={handleChange}
               type="password"
               name="password"
               value={signupInfo.password}
-              className={`w-full px-4 py-3 bg-gray-700/50 border ${errors.password ? 'border-red-500 focus:ring-red-500' : 'border-gray-600'}`}
+              className={`w-full px-4 py-3 bg-gray-700/50 border ${
+                errors.password ? 'border-red-500' : 'border-gray-600'
+              } rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all`}
               placeholder="Enter your password"
             />
             {errors.password && <p className="text-red-400 text-sm mt-1">{errors.password}</p>}
