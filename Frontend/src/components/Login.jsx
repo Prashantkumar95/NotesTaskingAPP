@@ -14,7 +14,7 @@ const Login = () => {
     const navigate = useNavigate();
      const navigate2 = useNavigate ();
 
-    const handleSwtichtoSignup = () => {
+    const handleSwitchToSignup = () => {
         navigate('/sign');
 
     }
