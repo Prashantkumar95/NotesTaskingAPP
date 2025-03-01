@@ -204,7 +204,7 @@ const SignUp = () => {
     if (!validateForm()) return;
 
     try {
-      const response = await fetch("notes-tasking-app.vercel.app/auth/signup", {
+      const response = await fetch("http://localhost:8090/auth/signup", {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(signupInfo)
