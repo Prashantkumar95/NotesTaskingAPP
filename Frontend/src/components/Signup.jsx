@@ -156,80 +156,146 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { handlError, handleSuccess } from '../utils.js';
 
+// const SignUp = () => {
+//   const [signupInfo, setSignupInfo] = useState({
+//     name: '',
+//     email: '',
+//     password: '',
+//   });
+//   const [errors, setErrors] = useState({});
+//   const navigate = useNavigate();
+
+//   const handleSwitchToLogin = () => navigate('/login');
+
+//   const handleChange = (e) => {
+//     const { name, value } = e.target;
+//     setSignupInfo(prev => ({ 
+//       ...prev, 
+//       [name]: value 
+//     }));
+//     // Clear error when user starts typing
+//     if (errors[name]) {
+//       setErrors(prev => ({
+//         ...prev,
+//         [name]: ''
+//       }));
+//     }
+//   };
+
+//   const validateForm = () => {
+//     const newErrors = {};
+//     if (!signupInfo.name.trim()) newErrors.name = 'Name is required';
+//     if (!signupInfo.email.trim()) {
+//       newErrors.email = 'Email is required';
+//     } else if (!/\S+@\S+\.\S+/.test(signupInfo.email)) {
+//       newErrors.email = 'Email is invalid';
+//     }
+//     if (!signupInfo.password) {
+//       newErrors.password = 'Password is required';
+//     } else if (signupInfo.password.length < 6) {
+//       newErrors.password = 'Password must be at least 6 characters';
+//     }
+//     setErrors(newErrors);
+//     return Object.keys(newErrors).length === 0;
+//   };
+
+//   const handleSignup = async (e) => {
+//     e.preventDefault();
+//     if (!validateForm()) return;
+
+//     try {
+//       const response = await fetch("http://localhost:8090/auth/signup", {
+//         method: 'POST',
+//         headers: { 'Content-Type': 'application/json' },
+//         body: JSON.stringify(signupInfo)
+//       });
+      
+//       const result = await response.json();
+      
+//       if (result.success) {
+//         handleSuccess(result.message);
+//         setTimeout(() => navigate('/login'), 1000);
+//       } else {
+//         handlError(result.message || 'Signup failed');
+//         if (result.error) {
+//           const serverErrors = {};
+//           result.error.details.forEach(err => {
+//             const field = err.path[0];
+//             serverErrors[field] = err.message;
+//           });
+//           setErrors(serverErrors);
+//         }
+//       }
+//     } catch (err) {
+//       handlError('Network error - please try again later');
+//     }
+//   };
 const SignUp = () => {
-  const [signupInfo, setSignupInfo] = useState({
-    name: '',
-    email: '',
-    password: '',
+  const [signupInfo , setsignupInfo] = useState({
+    name:'',
+    email:'',
+    password:'',
+  
   });
-  const [errors, setErrors] = useState({});
-  const navigate = useNavigate();
-
-  const handleSwitchToLogin = () => navigate('/login');
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setSignupInfo(prev => ({ 
-      ...prev, 
-      [name]: value 
-    }));
-    // Clear error when user starts typing
-    if (errors[name]) {
-      setErrors(prev => ({
-        ...prev,
-        [name]: ''
-      }));
-    }
-  };
-
-  const validateForm = () => {
-    const newErrors = {};
-    if (!signupInfo.name.trim()) newErrors.name = 'Name is required';
-    if (!signupInfo.email.trim()) {
-      newErrors.email = 'Email is required';
-    } else if (!/\S+@\S+\.\S+/.test(signupInfo.email)) {
-      newErrors.email = 'Email is invalid';
-    }
-    if (!signupInfo.password) {
-      newErrors.password = 'Password is required';
-    } else if (signupInfo.password.length < 6) {
-      newErrors.password = 'Password must be at least 6 characters';
-    }
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
-
-  const handleSignup = async (e) => {
-    e.preventDefault();
-    if (!validateForm()) return;
-
-    try {
-      const response = await fetch("http://localhost:8090/auth/signup", {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(signupInfo)
-      });
-      
-      const result = await response.json();
-      
-      if (result.success) {
-        handleSuccess(result.message);
-        setTimeout(() => navigate('/login'), 1000);
-      } else {
-        handlError(result.message || 'Signup failed');
-        if (result.error) {
-          const serverErrors = {};
-          result.error.details.forEach(err => {
-            const field = err.path[0];
-            serverErrors[field] = err.message;
-          });
-          setErrors(serverErrors);
-        }
+  
+    const navigate = useNavigate ();
+    const navigate2 = useNavigate ();
+  
+    const  handleswtichforLogin = () =>{
+      navigate('/login')
+  
+  }
+      const handleChange = (e) =>{
+        const {name , value} = e.target;
+       
+        const  copysignupInfo = {...signupInfo};
+        copysignupInfo[name] = value;
+        setsignupInfo(copysignupInfo);
+  
       }
-    } catch (err) {
-      handlError('Network error - please try again later');
-    }
-  };
+      
+  
+      const handleSignup= async(e) =>{
+        e.preventDefault();
+        
+      const {name , email , password} = signupInfo;
+      if(!name || !email || !password){
+        return handlError('Please fill all the fields');
+      }
+  
+  try{
+    const url = "http://localhost:8090/auth/signup";
+    const response = await fetch(url,{
+      method: 'POST',
+      headers:{
+        'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(signupInfo)
+        
+      });
+      const result = await response .json();
+      const {success , message , error}  = result;
+      if(success ){
+        handleSuccess(message);
+     
+      setTimeout(() =>{
+        navigate2('/login');
+      },1000)
+   }else if(error){
+    const details =  error?.details[0].message;
+    handlError(details);
+   } 
+   else if(!success){
+    handlError(message);
+   }
+  
+     
+  }catch (err){
+    handlError(err);
+  
+  
+  }}
+  
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 p-4">
