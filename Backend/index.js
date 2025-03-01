@@ -142,7 +142,7 @@ const PORT = process.env.PORT || 8090;
 
 // CORS Configuration
 const allowedOrigins = [
-    'https://ideavolt.vercel.app', // Include the full URL with protocol
+    'ideavolt.vercel.app', // Include the full URL with protocol
 ];
 
 app.use(cors({
