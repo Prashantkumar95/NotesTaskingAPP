@@ -23,7 +23,7 @@ const PORT = process.env.PORT || 8090;
 
 // CORS Configuration
 const allowedOrigins = [
-    'https://ideavolt-frontend.onrender.com', 
+    'ideavolt.vercel.app', 
 ];
 
 app.use(cors({
