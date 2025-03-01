@@ -154,7 +154,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { handlError, handleSuccess } from '../utils';
+import { handlError, handleSuccess } from '../utils.js';
 
 const SignUp = () => {
   const [signupInfo, setSignupInfo] = useState({
