@@ -204,7 +204,8 @@ const SignUp = () => {
     if (!validateForm()) return;
 
     try {
-      const response = await fetch("http://localhost:8090/auth/signup", {
+      const url = "http://localhost:8090/auth/signup";
+      const response = await fetch( url,{
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(signupInfo)
