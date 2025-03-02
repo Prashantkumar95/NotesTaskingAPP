@@ -154,7 +154,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { handleError, handleSuccess } from '../utils.js'; // Ensure handleError and handleSuccess are correctly implemented in your utils.js
+import { handleError, handleSuccess } from '../utils'; // Ensure handleError and handleSuccess are correctly implemented in your utils.js
 
 const SignUp = () => {
   const [signupInfo, setSignupInfo] = useState({
