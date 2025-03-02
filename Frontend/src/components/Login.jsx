@@ -60,15 +60,15 @@ const Login = () => {
       }
   else if(error){
     const details =  error?.details[0].message;
-    handlError(details);
+    handleError(details);
    } 
    else if(!success){
-    handlError(message);
+    handleError(message);
    }
   
      
   }catch (err){
-    handlError(err);
+    handleError(err);
   
   
   }}
