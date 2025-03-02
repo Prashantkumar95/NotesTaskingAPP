@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { handlError, handleSuccess } from '../utils';
+import { handleError, handleSuccess } from '../utils';
 
 const Login = () => {
   const [loginInfo , setloginInfo] = useState({
