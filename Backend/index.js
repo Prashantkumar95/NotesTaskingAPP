@@ -29,9 +29,9 @@ const PORT = process.env.PORT || 8090;
 
 // CORS Configuration
 const allowedOrigins = [
-    'https://ideavolt.vercel.app', // Your frontend URL
+    'https://ideavolt-prashantkumar95s-projects.vercel.app/', // Your frontend URL
     'http://localhost:3000', // Allow local development
-    'https://ideavolt-prashantkumar95s-projects.vercel.app/',
+    'https://ideavolt-hj4le72qi-prashantkumar95s-projects.vercel.app/',
 ];
 
 app.use(cors({
