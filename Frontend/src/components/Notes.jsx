@@ -367,7 +367,7 @@ const Notes = () => {
   const deleteNote = async (id) => {
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch(`http://localhost:8090/api/notes/${id}`, {
+      const response = await fetch(`https://notes-tasking-app.vercel.app/api/notes/${id}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -385,7 +385,7 @@ const Notes = () => {
   const fetchNotes = async () => {
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch("http://localhost:8090/api/notes", {
+      const response = await fetch("https://notes-tasking-app.vercel.app/api/notes", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -403,7 +403,7 @@ const Notes = () => {
     if (input.trim() !== "") {
       try {
         const token = localStorage.getItem("token");
-        const response = await fetch("http://localhost:8090/api/notes", {
+        const response = await fetch("https://notes-tasking-app.vercel.app/api/notes", {
           method: "POST",
           headers: {
             Authorization: `Bearer ${token}`,
@@ -457,7 +457,7 @@ const Notes = () => {
         };
 
         // Only send fields that have been updated
-        const response = await fetch(`http://localhost:8090/api/notes/${selectedNote._id}`, {
+        const response = await fetch(`https://notes-tasking-app.vercel.app/api/notes/${selectedNote._id}`, {
           method: "PUT",
           headers: {
             Authorization: `Bearer ${token}`,

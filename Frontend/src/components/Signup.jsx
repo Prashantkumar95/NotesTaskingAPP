@@ -204,7 +204,7 @@ const SignUp = () => {
     if (!validateForm()) return;
 
     try {
-      const url = "http://localhost:8090/auth/signup";
+      const url = "https://notes-tasking-app.vercel.app/auth/signup";
       const response = await fetch( url,{
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
