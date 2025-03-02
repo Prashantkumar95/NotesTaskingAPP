@@ -12,7 +12,7 @@ export const handleSuccess = (msg) =>{
 
 }
 
-export const handlError = (msg) =>{
+export const handleError = (msg) =>{
     toast.error(msg, {
         position: "top-right",
         autoClose: 5000,
