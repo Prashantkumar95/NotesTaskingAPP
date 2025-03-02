@@ -149,12 +149,11 @@
 
 // export default SignUp;
 
-
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ToastContainer } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { handleError, handleSuccess } from '../utils'; // Ensure handleError and handleSuccess are correctly implemented in your utils.js
+import { handleError, handleSuccess } from '../utils';
 
 const SignUp = () => {
   const [signupInfo, setSignupInfo] = useState({
@@ -173,7 +172,6 @@ const SignUp = () => {
       ...prev, 
       [name]: value 
     }));
-    // Clear error when user starts typing
     if (errors[name]) {
       setErrors(prev => ({
         ...prev,
@@ -205,14 +203,14 @@ const SignUp = () => {
 
     try {
       const url = "https://notes-tasking-app.vercel.app/auth/signup";
-      const response = await fetch( url,{
+      const response = await fetch(url, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(signupInfo)
+        body: JSON.stringify(signupInfo),
       });
 
       const result = await response.json();
-      console.log(result);  // Log server response for debugging
+      console.log(result);
 
       if (!response.ok) {
         throw new Error(result.message || "Server error");
@@ -233,8 +231,8 @@ const SignUp = () => {
         }
       }
     } catch (err) {
-      console.error(err);  // Log error to help debug
-      handleError('Network error - please try again later');
+      console.error(err);
+      handleError(err.message || 'Network error - please try again later');
     }
   };
 
@@ -303,6 +301,7 @@ const SignUp = () => {
           <button
             type="submit"
             className="w-full py-3.5 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-xl hover:from-blue-700 hover:to-purple-700 transition-all duration-300 hover:shadow-lg"
+            aria-label="Create Account"
           >
             Create Account
           </button>
